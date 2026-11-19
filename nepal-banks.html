@@ -3,45 +3,64 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mallik Group Global Payment Gateway (UAE + Nepal) — ©Nirajmallik@hub</title>
+  <title>Mallik Group Global Payment Gateway (Card • UAE • Nepal) — ©Nirajmallik@hub</title>
   <style>
     body { font-family: system-ui, sans-serif; background: #070d19; color: #f1f5f9; margin: 0; padding: 16px; }
-    .wrap { max-width: 820px; margin: 0 auto; }
+    .wrap { max-width: 860px; margin: 0 auto; }
     h1 { font-size: 1.3rem; margin-bottom: 4px; }
     .sub { color: #94a3b8; font-size: 0.85rem; margin-bottom: 18px; }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
     .card { background: #0f172a; border: 1px solid #1e293b; border-radius: 14px; padding: 16px; }
+    .card.featured { border-color: #38bdf8; box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.25); }
     .badge { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 3px 8px; border-radius: 999px; margin-bottom: 8px; }
+    .card-badge { background: #0c4a6e; color: #38bdf8; }
     .uae { background: #064e3b; color: #34d399; }
     .np { background: #1e3a8a; color: #93c5fd; }
-    .mono { font-family: monospace; background: #020617; padding: 8px 10px; border-radius: 8px; border: 1px solid #1e293b; word-break: break-all; font-size: 0.85rem; margin: 8px 0; }
-    img.qr { width: 180px; height: 180px; object-fit: contain; background: #fff; padding: 6px; border-radius: 10px; display: block; margin: 10px auto; }
-    .btn { display: inline-block; width: 100%; text-align: center; background: #10b981; color: #042f2e; font-weight: 700; text-decoration: none; padding: 11px; border-radius: 10px; margin-top: 14px; box-sizing: border-box; }
+    .mono { font-family: monospace; background: #020617; padding: 8px 10px; border-radius: 8px; border: 1px solid #1e293b; word-break: break-all; font-size: 0.84rem; margin: 8px 0; }
+    img.qr { width: 175px; height: 175px; object-fit: contain; background: #fff; padding: 6px; border-radius: 10px; display: block; margin: 10px auto; }
+    .btn { display: inline-block; width: 100%; text-align: center; background: #10b981; color: #042f2e; font-weight: 700; text-decoration: none; padding: 11px; border-radius: 10px; margin-top: 10px; box-sizing: border-box; }
+    .btn-card { background: #38bdf8; color: #082f49; }
     footer { text-align: center; color: #94a3b8; font-size: 0.78rem; margin-top: 20px; }
   </style>
 </head>
 <body>
   <div class="wrap">
     <h1>Mallik Group Global Payment & 18-Digit Key Gateway</h1>
-    <div class="sub">Pay via UAE (AED) or Nepal (NPR) • Send Receipt on WhatsApp (+971502297451) to Activate Your 18-Digit Key</div>
+    <div class="sub">Pay by Card (Direct to mBank UAE), UAE Bank/Aani, or Nepal Bank/QR • Get Your 18-Digit Key Instantly</div>
 
     <div class="grid">
+      <!-- 1. Card Payment Direct to mBank UAE -->
+      <div class="card featured">
+        <span class="badge card-badge">CARD PAYMENT • DIRECT TO MBANK UAE</span>
+        <h3>Visa / Mastercard / Apple Pay</h3>
+        <div>Beneficiary: <strong>Niraj Mallik</strong></div>
+        <div>Settlement Bank: <strong>Al Maryah Community Bank (mBank)</strong></div>
+        <div class="mono">IBAN: AE900975554769760000001</div>
+        <div style="font-size:0.82rem;color:#94a3b8;">Pay with any Debit/Credit Card or Apple Pay. Funds settle directly into mBank UAE.</div>
+        <a id="cardPayBtn" class="btn btn-card" href="https://wa.me/971502297451?text=Hello%20Niraj%2C%20please%20send%20me%20the%20instant%20Card%20Payment%20link%20(mBank%20UAE)%20so%20I%20can%20pay%20and%20get%20my%2018-digit%20key.">
+          Pay by Card (Request Instant Card Link)
+        </a>
+      </div>
+
+      <!-- 2. UAE: Aani / Botim -->
       <div class="card">
         <span class="badge uae">UAE INSTANT • AANI / BOTIM</span>
         <h3>Botim / PayBy / Aani</h3>
         <div>Account Holder: <strong>Niraj Mallik</strong></div>
         <div class="mono">+971502297451</div>
-        <div style="font-size:0.82rem;color:#94a3b8;">Instant AED transfer via Aani or Botim Pay.</div>
+        <div style="font-size:0.82rem;color:#94a3b8;">Instant AED transfer via Aani or Botim Pay (linked to mBank).</div>
       </div>
 
+      <!-- 3. UAE: Al Maryah Community Bank Direct IBAN -->
       <div class="card">
         <span class="badge uae">UAE BANK • MBANK IBAN</span>
         <h3>Al Maryah Community Bank</h3>
         <div>Account Holder: <strong>Niraj Mallik</strong></div>
         <div class="mono">AE900975554769760000001</div>
-        <div style="font-size:0.82rem;color:#94a3b8;">Direct UAE IBAN bank transfer (AED).</div>
+        <div style="font-size:0.82rem;color:#94a3b8;">Direct UAE bank / card-to-IBAN transfer (AED).</div>
       </div>
 
+      <!-- 4. Nepal: Excel Development Bank Ltd. -->
       <div class="card">
         <span class="badge np">NEPAL • FONEPAY / BANK QR</span>
         <h3>Excel Development Bank Ltd.</h3>
@@ -50,6 +69,7 @@
         <div style="font-size:0.82rem;color:#94a3b8;">Scan via any Nepali mobile banking app or eSewa/Khalti QR.</div>
       </div>
 
+      <!-- 5. Nepal: Rastriya Banijya Bank Ltd. -->
       <div class="card">
         <span class="badge np">NEPAL • RBB BANK TRANSFER</span>
         <h3>Rastriya Banijya Bank Ltd.</h3>
@@ -60,8 +80,8 @@
       </div>
     </div>
 
-    <a class="btn" href="https://wa.me/971502297451?text=Hello%20Niraj%2C%20I%20completed%20my%20Mallik%20Group%20payment%20(UAE%2FNepal).%20Here%20is%20my%20receipt%20for%20my%2018-digit%20key.">
-      Send Payment Receipt & Request 18-Digit Key on WhatsApp
+    <a class="btn" href="https://wa.me/971502297451?text=Hello%20Niraj%2C%20I%20completed%20my%20Mallik%20Group%20payment%20(Card%20%2F%20mBank%20%2F%20Nepal).%20Here%20is%20my%20receipt%20for%20my%2018-digit%20key.">
+      Confirm Payment & Receive 18-Digit Key on WhatsApp
     </a>
 
     <footer>©Nirajmallik@hub • Mallikgroup for Humanity • MIT License 2026</footer>
