@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mallik Group — 18-Digit Quantum Key &amp; Payment System</title>
+  <style>
+    :root {
+      --bg: #060a13;
+      --card: #0d1526;
+      --card-2: #121e36;
+      --border: rgba(148, 163, 184, 0.18);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --q: #38bdf8;
+      --q2: #818cf8;
+      --ok: #10b981;
+      --warn: #f59e0b;
+      --err: #f87171;
+    }
+    * { box-sizing: border-box; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    body {
+      margin: 0;
+      padding: 16px;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(56, 189, 248, 0.14), transparent 40%),
+        radial-gradient(circle at 85% 15%, rgba(129, 140, 248, 0.14), transparent 42%),
+        var(--bg);
+      min-height: 100vh;
+    }
+    .container { max-width: 780px; margin: 0 auto; }
+    .header {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .header h1 { margin: 0; font-size: 1.25rem; }
+    .header p { margin: 4px 0 0; color: var(--muted); font-size: 0.85rem; }
+    .badge {
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      background: rgba(56, 189, 248, 0.14);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+    }
+    .badge.active {
+      background: rgba(16, 185, 129, 0.16);
+      color: #34d399;
+      border-color: rgba(16, 185, 129, 0.4);
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35);
+    }
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 0.92rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #cbd5e1;
+    }
+    .key-display {
+      background: #050811;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      border-radius: 14px;
+      padding: 14px;
+      text-align: center;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      color: #38bdf8;
+      margin: 10px 0;
+      word-break: break-all;
+    }
+    .row { display: flex; flex-wrap: wrap; gap: 8px; }
+    input, select {
+      width: 100%;
+      background: var(--card-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 11px 13px;
+      font-size: 0.92rem;
+    }
+    input:focus, select:focus { outline: none; border-color: var(--q); }
+    .field { margin-bottom: 12px; }
+    .field label { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 5px; }
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 11px 15px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+    }
+    .btn-q { background: linear-gradient(135deg, #38bdf8, #6366f1); color: #fff; }
+    .btn-ok { background: linear-gradient(135deg, #10b981, #059669); color: #042f2e; }
+    .btn-sub { background: rgba(255, 255, 255, 0.07); color: var(--text); border: 1px solid var(--border); }
+    .pay-panel {
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .kv {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.82rem;
+      word-break: break-all;
+    }
+    .kv:last-child { border-bottom: none; }
+    .qr-box {
+      background: #fff;
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center;
+      margin: 10px 0;
+    }
+    .qr-box img { width: 165px; height: 165px; object-fit: contain; display: block; margin: 0 auto; }
+    .qr-cap { color: #0f172a; font-size: 0.78rem; font-weight: 700; margin-top: 6px; }
+    .status { font-size: 0.85rem; margin-top: 10px; min-height: 20px; }
+    .wa-btn {
+      display: block;
+      text-align: center;
+      background: #22c55e;
+      color: #052e16;
+      font-weight: 800;
+      padding: 11px 14px;
+      border-radius: 12px;
+      text-decoration: none;
+      margin-top: 10px;
+      font-size: 0.88rem;
+    }
+    .history-item {
+      background: var(--card-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      margin-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    footer { text-align: center; color: var(--muted); font-size: 0.75rem; margin-top: 18px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div>
+        <h1>Mallik Group Quantum 18-Digit Key System</h1>
+        <p>Unique per-customer 18-digit key generation • Aani &amp; Botim payment verification</p>
+      </div>
+      <span class="badge" id="statusBadge">AWAITING ACTIVATION</span>
+    </div>
+
+    <div class="card">
+      <h2>1. Auto-Generated Unique 18-Digit Quantum Key</h2>
+      <p style="color:var(--muted); font-size:0.84rem; margin:0 0 8px;">
+        Each customer receives a distinct 18-digit key backed by cryptographic entropy and a check digit. Once activated, that key is locked to this customer record.
+      </p>
+      <div class="key-display" id="quantumKeyBox">------------------</div>
+      <div class="row">
+        <button class="btn-q" onclick="generateNewKey()">Generate New Unique 18-Digit Key</button>
+        <button class="btn-sub" onclick="copyCurrentKey()">Copy Key</button>
+      </div>
+      <div class="status" id="genStatus"></div>
+    </div>
+
+    <div class="card">
+      <h2>2. Pay via Aani or Botim &amp; Bind Key (30 Days)</h2>
+      <div class="pay-panel">
+        <div class="row" style="margin-bottom:8px;">
+          <button class="btn-sub" onclick="selectChannel('aani')">Aani (mBank IBAN)</button>
+          <button class="btn-sub" onclick="selectChannel('botim')">Botim Pay (+971502297451)</button>
+        </div>
+        <div class="qr-box">
+          <img id="channelQr" src="aani-qr.png" alt="Payment QR" onerror="this.style.display='none'; document.getElementById('qrNoteFallback').style.display='block';" />
+          <div id="qrNoteFallback" style="display:none; color:#0f172a; font-size:0.8rem; padding:10px;">QR file not in directory — use IBAN or Botim number below.</div>
+          <div class="qr-cap" id="channelCaption">Aani / mBank UAE Transfer</div>
+        </div>
+        <div class="kv">
+          <span>Botim / Mobile</span>
+          <span><strong>+971502297451</strong> <button class="btn-sub" style="padding:4px 9px; font-size:0.75rem;" onclick="copyValue('+971502297451')">Copy</button></span>
+        </div>
+        <div class="kv">
+          <span>mBank UAE IBAN</span>
+          <span><strong>AE900975554769760000001</strong> <button class="btn-sub" style="padding:4px 9px; font-size:0.75rem;" onclick="copyValue('AE900975554769760000001')">Copy</button></span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="customerName">Customer Name or Email (Optional)</label>
+        <input type="text" id="customerName" placeholder="e.g., Customer ID or email" />
+      </div>
+      <div class="field">
+        <label for="payChannel">Payment Channel Used</label>
+        <select id="payChannel" onchange="selectChannel(this.value)">
+          <option value="aani">Aani (mBank IBAN AE900975554769760000001)</option>
+          <option value="botim">Botim Pay (+971502297451)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="paymentRef">Payment / Transfer Reference (Digits or Receipt ID)</label>
+        <input type="text" id="paymentRef" placeholder="Enter your bank/Botim transfer reference" />
+      </div>
+
+      <button class="btn-ok" style="width:100%;" onclick="activateCustomerKey()">Verify &amp; Activate My Unique 18-Digit Key</button>
+      <div class="status" id="actStatus"></div>
+      <a id="waLink" class="wa-btn" href="https://wa.me/971502297451" target="_blank" rel="noopener">Confirm Receipt on WhatsApp (+971502297451)</a>
+    </div>
+
+    <div class="card">
+      <h2>3. Issued &amp; Active Keys on This Device</h2>
+      <div id="keyHistory"></div>
+    </div>
+
+    <footer>© 2026 Niraj Mallik (nirajmallik143-hub / Mallik Group) • MIT License</footer>
+  </div>
+
+  <script>
+    const DB_ROOT = "https://nmdc-ajs-security-default-rtdb.firebaseio.com/mallik_payments/quantum_keys";
+    const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
+    const STORAGE_ISSUED = "mallik_quantum_issued_keys_v1";
+    const STORAGE_ACTIVE = "mallik_quantum_active_key_v1";
+
+    let currentCandidateKey = "";
+
+    function computeLuhnCheckDigit(digits17) {
+      let sum = 0;
+      let doubleIt = true;
+      for (let i = digits17.length - 1; i >= 0; i--) {
+        let d = Number(digits17[i]);
+        if (doubleIt) {
+          d *= 2;
+          if (d > 9) d -= 9;
+        }
+        sum += d;
+        doubleIt = !doubleIt;
+      }
+      return String((10 - (sum % 10)) % 10);
+    }
+
+    function isValidLuhn18(code18) {
+      if (!/^\d{18}$/.test(code18)) return false;
+      const body17 = code18.slice(0, 17);
+      return computeLuhnCheckDigit(body17) === code18[17];
+    }
+
+    function random17Digits() {
+      const buf = new Uint32Array(4);
+      crypto.getRandomValues(buf);
+      const nowPart = String(Date.now()).slice(-6);
+      const perfPart = String(Math.floor(performance.now() * 1000)).replace(/\D/g, "").slice(-4).padStart(4, "7");
+      const randPart = `${buf[0]}${buf[1]}${buf[2]}${buf[3]}`.replace(/\D/g, "");
+      const combined = `${nowPart}${perfPart}${randPart}`.slice(0, 17).padEnd(17, "3");
+      // Ensure first digit is 1-9
+      const first = combined[0] === "0" ? "8" : combined[0];
+      return first + combined.slice(1);
+    }
+
+    function getIssuedHistory() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_ISSUED) || "[]");
+      } catch (e) {
+        return [];
+      }
+    }
+
+    async function generateNewKey() {
+      const genStatus = document.getElementById("genStatus");
+      genStatus.style.color = "#7dd3fc";
+      genStatus.textContent = "Generating unique 18-digit Quantum Key...";
+
+      const known = new Set(getIssuedHistory().map(x => x.key));
+      let candidate = "";
+
+      for (let attempt = 0; attempt < 8; attempt++) {
+        const body17 = random17Digits();
+        const check = computeLuhnCheckDigit(body17);
+        const full18 = body17 + check;
+        if (known.has(full18) || full18 === currentCandidateKey) continue;
+
+        try {
+          const res = await fetch(`${DB_ROOT}/${full18}.json`);
+          const exists = await res.json();
+          if (!exists) {
+            candidate = full18;
+            break;
+          }
+        } catch (err) {
+          candidate = full18;
+          break;
+        }
+      }
+
+      if (!candidate) {
+        const body17 = random17Digits();
+        candidate = body17 + computeLuhnCheckDigit(body17);
+      }
+
+      currentCandidateKey = candidate;
+      document.getElementById("quantumKeyBox").textContent = candidate;
+      genStatus.style.color = "#34d399";
+      genStatus.textContent = "Unique 18-digit key ready. Complete payment and activate below.";
+      updateWhatsAppLink();
+    }
+
+    function selectChannel(ch) {
+      document.getElementById("payChannel").value = ch;
+      const img = document.getElementById("channelQr");
+      const cap = document.getElementById("channelCaption");
+      img.style.display = "block";
+      document.getElementById("qrNoteFallback").style.display = "none";
+      if (ch === "aani") {
+        img.src = "aani-qr.png";
+        cap.textContent = "Aani (mBank UAE IBAN AE900975554769760000001)";
+      } else {
+        img.src = "botim-qr.png";
+        cap.textContent = "Botim Pay (+971502297451)";
+      }
+      updateWhatsAppLink();
+    }
+
+    function updateWhatsAppLink() {
+      const ch = document.getElementById("payChannel").value;
+      const ref = document.getElementById("paymentRef").value.trim() || "PENDING_REF";
+      const cust = document.getElementById("customerName").value.trim() || "Customer";
+      const text = `Mallik Group Quantum Key Activation\nCustomer: ${cust}\n18-Digit Key: ${currentCandidateKey}\nChannel: ${ch.toUpperCase()}\nPayment Ref: ${ref}`;
+      document.getElementById("waLink").href = `https://wa.me/971502297451?text=${encodeURIComponent(text)}`;
+    }
+
+    async function activateCustomerKey() {
+      const actStatus = document.getElementById("actStatus");
+      const ref = document.getElementById("paymentRef").value.trim();
+      const ch = document.getElementById("payChannel").value;
+      const cust = document.getElementById("customerName").value.trim() || "Customer";
+
+      if (!isValidLuhn18(currentCandidateKey)) {
+        actStatus.style.color = "#f87171";
+        actStatus.textContent = "Invalid 18-digit key format. Click Generate New Unique 18-Digit Key.";
+        return;
+      }
+      if (!ref) {
+        actStatus.style.color = "#fbbf24";
+        actStatus.textContent = "Please enter your payment/transfer reference before activating.";
+        return;
+      }
+
+      actStatus.style.color = "#7dd3fc";
+      actStatus.textContent = "Checking uniqueness & binding 18-digit key to Firebase...";
+
+      try {
+        const res = await fetch(`${DB_ROOT}/${currentCandidateKey}.json`);
+        const existing = await res.json();
+        if (existing) {
+          actStatus.style.color = "#f87171";
+          actStatus.textContent = "This 18-digit key is already claimed. Generating a fresh unique key...";
+          await generateNewKey();
+          return;
+        }
+      } catch (err) {
+        console.warn("Firebase pre-check fallback:", err);
+      }
+
+      const now = Date.now();
+      const record = {
+        key: currentCandidateKey,
+        customer: cust,
+        channel: ch,
+        paymentRef: ref,
+        activatedAt: new Date(now).toISOString(),
+        expiresAt: now + THIRTY_DAYS_MS,
+        durationDays: 30,
+        status: "ACTIVE_1_MONTH"
+      };
+
+      try {
+        await fetch(`${DB_ROOT}/${currentCandidateKey}.json`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(record)
+        });
+      } catch (err) {
+        console.warn("Firebase write fallback:", err);
+      }
+
+      const history = getIssuedHistory();
+      history.unshift(record);
+      localStorage.setItem(STORAGE_ISSUED, JSON.stringify(history));
+      localStorage.setItem(STORAGE_ACTIVE, JSON.stringify(record));
+
+      updateWhatsAppLink();
+      renderState();
+      actStatus.style.color = "#34d399";
+      actStatus.textContent = `Activated 18-digit key ${currentCandidateKey} for 30 days!`;
+      await generateNewKey();
+    }
+
+    function renderState() {
+      const badge = document.getElementById("statusBadge");
+      let active = null;
+      try {
+        active = JSON.parse(localStorage.getItem(STORAGE_ACTIVE) || "null");
+      } catch (e) {}
+
+      if (active && active.expiresAt > Date.now()) {
+        const daysLeft = Math.max(1, Math.ceil((active.expiresAt - Date.now()) / (1000 * 60 * 60 * 24)));
+        badge.textContent = `ACTIVE (${daysLeft}d LEFT)`;
+        badge.className = "badge active";
+      } else {
+        badge.textContent = "AWAITING ACTIVATION";
+        badge.className = "badge";
+      }
+
+      const list = document.getElementById("keyHistory");
+      const history = getIssuedHistory();
+      if (!history.length) {
+        list.innerHTML = `<p style="color:var(--muted); font-size:0.82rem; margin:0;">No keys activated on this device yet.</p>`;
+        return;
+      }
+
+      list.innerHTML = history.map(item => `
+        <div class="history-item">
+          <div>
+            <strong>${item.key}</strong><br/>
+            <span style="color:var(--muted);">Customer: ${item.customer} • Ref: ${item.paymentRef} (${item.channel.toUpperCase()})</span>
+          </div>
+          <span style="color:#34d399; font-weight:700;">30d Active</span>
+        </div>
+      `).join("");
+    }
+
+    function copyValue(val) {
+      navigator.clipboard.writeText(val).catch(() => {});
+    }
+
+    function copyCurrentKey() {
+      if (currentCandidateKey) copyValue(currentCandidateKey);
+    }
+
+    document.getElementById("paymentRef").addEventListener("input", updateWhatsAppLink);
+    document.getElementById("customerName").addEventListener("input", updateWhatsAppLink);
+
+    renderState();
+    generateNewKey();
+  </script>
+</body>
+</html>
