@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mallik Group Owner Approval Console — ©Nirajmallik@hub</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #070d19; color: #f1f5f9; margin: 0; padding: 16px; }
+    .box { max-width: 480px; margin: 24px auto; background: #0f172a; border: 1px solid #1e293b; border-radius: 14px; padding: 18px; }
+    h2 { margin: 0 0 6px; font-size: 1.2rem; }
+    p { color: #94a3b8; font-size: 0.85rem; margin: 0 0 14px; }
+    input, select, button { width: 100%; box-sizing: border-box; padding: 11px 12px; border-radius: 10px; border: 1px solid #334155; background: #020617; color: #f1f5f9; margin-bottom: 10px; font-size: 0.92rem; }
+    button { background: #10b981; color: #042f2e; font-weight: 700; border: none; cursor: pointer; }
+    .mono { font-family: monospace; background: #020617; border: 1px solid #1e293b; padding: 10px; border-radius: 10px; margin-top: 10px; word-break: break-all; color: #38bdf8; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Owner Payment Approval — ©Nirajmallik@hub</h2>
+    <p>Enter Owner Key (#cgjolj2Y) and customer's MG-XXXX reference to issue an 18-digit Pro key.</p>
+    <input id="ownerKey" type="password" placeholder="Owner Master Key (#cgjolj2Y)" />
+    <input id="orderRef" type="text" placeholder="Customer Reference (e.g. MG-4829)" />
+    <select id="planDays">
+      <option value="30">Pro Monthly (30 Days)</option>
+      <option value="365">Pro Yearly (365 Days)</option>
+      <option value="3650">Lifetime Pro (10 Years)</option>
+    </select>
+    <button type="button" onclick="approveOrder()">Approve Payment &amp; Issue 18-Digit Key</button>
+    <div id="result" class="mono">Ready.</div>
+  </div>
+
+  <script>
+    const DB = "https://nmdc-ajs-security-default-rtdb.firebaseio.com/mallik_payments";
+
+    function generateLuhn18() {
+      let base = "794";
+      while (base.length < 17) base += Math.floor(Math.random() * 10);
+      let sum = 0;
+      for (let i = 0; i < 17; i++) {
+        let d = parseInt(base[16 - i], 10);
+        if (i % 2 === 0) { d *= 2; if (d > 9) d -= 9; }
+        sum += d;
+      }
+      const check = (10 - (sum % 10)) % 10;
+      return base + check;
+    }
+
+    async function approveOrder() {
+      const owner = document.getElementById("ownerKey").value.trim();
+      const ref = document.getElementById("orderRef").value.trim().toUpperCase();
+      const days = parseInt(document.getElementById("planDays").value, 10);
+      const out = document.getElementById("result");
+
+      if (owner !== "#cgjolj2Y") { out.textContent = "Invalid Owner Key."; return; }
+      if (!ref) { out.textContent = "Enter customer reference (e.g. MG-4829)."; return; }
+
+      const key18 = generateLuhn18();
+      const now = Date.now();
+      const expiresAt = now + days * 86400 * 1000;
+      const payload = { key: key18, ref, tier: "PRO", status: "ACTIVE", createdAt: now, expiresAt, issuer: "©Nirajmallik@hub" };
+
+      out.textContent = "Saving to Firebase...";
+      try {
+        await fetch(`${DB}/quantum_keys/${key18}.json`, { method: "PUT", body: JSON.stringify(payload) });
+        await fetch(`${DB}/orders/${encodeURIComponent(ref)}.json`, { method: "PUT", body: JSON.stringify(payload) });
+        out.textContent = `APPROVED!\nRef: ${ref}\n18-Digit Pro Key: ${key18}\nExpires: ${new Date(expiresAt).toLocaleDateString()}`;
+      } catch (e) {
+        out.textContent = "Firebase write error: " + e.message;
+      }
+    }
+  </script>
+</body>
+</html>
