@@ -1,0 +1,22 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "mallik_payments": {
+      "quantum_keys": {
+        "$key": {
+          ".read": "$key.matches(/^[0-9]{18}$/)",
+          ".write": "auth != null && auth.uid === 'YOUR_ADMIN_FIREBASE_UID'",
+          ".validate": "newData.hasChildren(['key', 'tier', 'status', 'expiresAt']) && newData.child('key').val() === $key"
+        }
+      },
+      "orders": {
+        "$ref": {
+          ".read": "$ref.matches(/^MG-[0-9]{4}$/)",
+          ".write": "auth != null && auth.uid === 'YOUR_ADMIN_FIREBASE_UID'",
+          ".validate": "newData.hasChildren(['key', 'ref', 'status'])"
+        }
+      }
+    }
+  }
+}

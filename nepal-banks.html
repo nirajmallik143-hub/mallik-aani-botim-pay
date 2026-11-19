@@ -5,16 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mallik Group Instant Payment &amp; 18-Digit Key Portal — ©Nirajmallik@hub</title>
   <style>
-    :root {
-      --bg: #070d19;
-      --card: #0f172a;
-      --border: #1e293b;
-      --text: #f1f5f9;
-      --muted: #94a3b8;
-      --accent: #10b981;
-      --sky: #38bdf8;
-      --np: #93c5fd;
-    }
+    :root { --bg: #070d19; --card: #0f172a; --border: #1e293b; --text: #f1f5f9; --muted: #94a3b8; --accent: #10b981; --sky: #38bdf8; --np: #93c5fd; }
     * { box-sizing: border-box; }
     body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 16px; }
     .wrap { max-width: 920px; margin: 0 auto; }
@@ -54,7 +45,6 @@
     <h1>Mallik Group Instant Payment &amp; 18-Digit Key Portal</h1>
     <div class="sub">Select your plan, pay via <strong>mBank UAE</strong>, <strong>Botim/Aani</strong>, <strong>Card</strong>, or <strong>Nepal Bank</strong>, and unlock Pro access.</div>
 
-    <!-- Pricing Plans (Tap to select) -->
     <div class="plans">
       <div class="plan" onclick="selectPlan('Free Humanity Tier (0 AED / 0 NPR)', this)">
         <div class="badge uae">FREE TIER</div>
@@ -171,12 +161,8 @@
     document.getElementById("lookupInput").value = refCode;
 
     function updateWaLinks() {
-      const receiptMsg = encodeURIComponent(
-        `Hello Niraj, I completed payment for ${selectedPlan} | Ref: ${refCode}. Attaching receipt to activate my 18-digit key.`
-      );
-      const cardMsg = encodeURIComponent(
-        `Hello Niraj, please send me the Card Payment link for ${selectedPlan} | Ref: ${refCode} (settling to mBank UAE).`
-      );
+      const receiptMsg = encodeURIComponent(`Hello Niraj, I completed payment for ${selectedPlan} | Ref: ${refCode}. Attaching receipt to activate my 18-digit key.`);
+      const cardMsg = encodeURIComponent(`Hello Niraj, please send me the Card Payment link for ${selectedPlan} | Ref: ${refCode} (settling to mBank UAE).`);
       document.getElementById("waReceiptBtn").href = `https://wa.me/971502297451?text=${receiptMsg}`;
       document.getElementById("cardLinkBtn").href = `https://wa.me/971502297451?text=${cardMsg}`;
     }
@@ -206,17 +192,11 @@
         if (/^\d{18}$/.test(val)) {
           const r = await fetch(`${DB_ROOT}/quantum_keys/${val}.json`);
           const data = await r.json();
-          out.textContent = data && data.status === "ACTIVE"
-            ? `18-Digit Key ${val} is ACTIVE in Mallik Payments.`
-            : `18-Digit Key ${val} not active yet. Send receipt on WhatsApp with Ref ${refCode}.`;
+          out.textContent = data && data.status === "ACTIVE" ? `18-Digit Key ${val} is ACTIVE in Mallik Payments.` : `18-Digit Key ${val} not active yet. Send receipt on WhatsApp with Ref ${refCode}.`;
         } else {
           const r = await fetch(`${DB_ROOT}/orders/${encodeURIComponent(val)}.json`);
           const order = await r.json();
-          if (order && order.key) {
-            out.textContent = `Approved! Your 18-Digit Key: ${order.key}`;
-          } else {
-            out.textContent = `Ref ${val} is awaiting payment verification. Send receipt on WhatsApp (+971502297451).`;
-          }
+          out.textContent = order && order.key ? `Approved! Your 18-Digit Key: ${order.key}` : `Ref ${val} is awaiting payment verification. Send receipt on WhatsApp (+971502297451).`;
         }
       } catch (e) {
         out.textContent = "Could not reach payment database right now. Send receipt on WhatsApp (+971502297451).";
