@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>20-File Code Uploader — ©Nirajmallik@hub</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #070d19; color: #f1f5f9; margin: 0; padding: 16px; }
+    .box { max-width: 760px; margin: 0 auto; background: #0f172a; border: 1px solid #1e293b; border-radius: 16px; padding: 18px; }
+    h1 { margin: 0 0 6px; font-size: 1.2rem; }
+    .sub { color: #94a3b8; font-size: 0.85rem; margin-bottom: 14px; }
+    .drop { border: 2px dashed #38bdf8; border-radius: 12px; padding: 18px; text-align: center; background: #0b1220; }
+    button { background: #10b981; color: #042f2e; border: none; border-radius: 10px; padding: 10px 14px; font-weight: 700; cursor: pointer; margin-top: 10px; }
+    ul { list-style: none; padding: 0; margin: 14px 0 0; }
+    li { background: #131f35; border: 1px solid #1e293b; border-radius: 10px; padding: 8px 12px; margin-bottom: 6px; font-size: 0.84rem; display: flex; justify-content: space-between; }
+    .warn { color: #fbbf24; font-size: 0.84rem; margin-top: 8px; }
+    footer { text-align: center; color: #94a3b8; font-size: 0.78rem; margin-top: 16px; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>20-File Code Uploader</h1>
+    <div class="sub">Select up to 20 code files at once • ©Nirajmallik@hub</div>
+    <div class="drop">
+      <input id="codeFiles" type="file" multiple accept=".py,.js,.ts,.html,.css,.json,.md,.sh,.yml,.yaml,.txt,.c,.cpp,.java,.go,.rs" />
+      <div class="warn" id="limitMsg">Max 20 files per batch (0 / 20 selected).</div>
+      <button type="button" onclick="exportManifest()">Prepare Batch Manifest (JSON)</button>
+    </div>
+    <ul id="fileList"></ul>
+    <footer>©Nirajmallik@hub • Niraj Mallik (nirajmallik143-hub) • MIT License 2026</footer>
+  </div>
+  <script>
+    const MAX_FILES = 20;
+    const input = document.getElementById("codeFiles");
+    const list = document.getElementById("fileList");
+    const msg = document.getElementById("limitMsg");
+    let selectedFiles = [];
+
+    input.addEventListener("change", async () => {
+      const files = Array.from(input.files || []);
+      if (files.length > MAX_FILES) {
+        msg.textContent = `Selected ${files.length} files — only the first ${MAX_FILES} files were kept.`;
+      } else {
+        msg.textContent = `Max ${MAX_FILES} files per batch (${Math.min(files.length, MAX_FILES)} / ${MAX_FILES} selected).`;
+      }
+      selectedFiles = [];
+      list.innerHTML = "";
+
+      for (const f of files.slice(0, MAX_FILES)) {
+        const text = await f.text();
+        selectedFiles.push({
+          owner: "©Nirajmallik@hub",
+          name: f.name,
+          size: f.size,
+          lines: text.split("\n").length,
+          content: text
+        });
+        const li = document.createElement("li");
+        li.innerHTML = `<span><strong>${f.name}</strong></span><span>${f.size} B • ${text.split("\n").length} lines</span>`;
+        list.appendChild(li);
+      }
+    });
+
+    function exportManifest() {
+      if (!selectedFiles.length) return;
+      const blob = new Blob([JSON.stringify({ brand: "©Nirajmallik@hub", count: selectedFiles.length, files: selectedFiles }, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "mallik-20-code-files.json";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
