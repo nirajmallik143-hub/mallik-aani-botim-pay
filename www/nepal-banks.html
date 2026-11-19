@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mallik Group Instant Payment &amp; 18-Digit Key Portal — ©Nirajmallik@hub</title>
+  <style>
+    :root { --bg: #070d19; --card: #0f172a; --border: #1e293b; --text: #f1f5f9; --muted: #94a3b8; --accent: #10b981; --sky: #38bdf8; --np: #93c5fd; }
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 16px; }
+    .wrap { max-width: 920px; margin: 0 auto; }
+    h1 { font-size: 1.35rem; margin: 0 0 6px; }
+    .sub { color: var(--muted); font-size: 0.86rem; margin-bottom: 16px; }
+    .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 16px; }
+    .plan { background: #0b1324; border: 1px solid var(--border); border-radius: 12px; padding: 14px; cursor: pointer; }
+    .plan.active { border-color: var(--accent); box-shadow: 0 0 0 1px rgba(16,185,129,0.3); }
+    .price { font-size: 1.15rem; font-weight: 800; color: var(--accent); margin: 4px 0; }
+    .ref-banner { background: #0b192c; border: 1px solid #0284c7; border-radius: 14px; padding: 14px 16px; margin-bottom: 18px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+    .ref-code { font-family: monospace; font-size: 1.05rem; font-weight: 700; color: var(--sky); background: #020617; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(265px, 1fr)); gap: 14px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; }
+    .card.featured { border-color: var(--accent); box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.25); }
+    .badge { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; margin-bottom: 8px; width: fit-content; }
+    .uae { background: #064e3b; color: #34d399; }
+    .card-badge { background: #0c4a6e; color: #38bdf8; }
+    .np-badge { background: #1e3a8a; color: var(--np); }
+    h3 { margin: 2px 0 8px; font-size: 1.05rem; }
+    .mono { font-family: monospace; background: #020617; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--border); word-break: break-all; font-size: 0.85rem; margin: 8px 0; }
+    img.qr { width: 170px; height: 170px; object-fit: contain; background: #fff; padding: 6px; border-radius: 10px; display: block; margin: 10px auto; }
+    .hint { font-size: 0.8rem; color: var(--muted); line-height: 1.4; }
+    button, a.btn { width: 100%; text-align: center; border: none; border-radius: 10px; padding: 10px 12px; font-weight: 700; font-size: 0.88rem; cursor: pointer; text-decoration: none; display: inline-block; margin-top: 10px; }
+    .btn-copy { background: #1e293b; color: var(--text); border: 1px solid #334155; }
+    .btn-wa { background: var(--accent); color: #042f2e; font-size: 0.95rem; padding: 12px; margin-top: 18px; }
+    .btn-sky { background: var(--sky); color: #082f49; }
+    .claim-box { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin-top: 18px; }
+    .claim-row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+    .claim-row input { flex: 1; min-width: 180px; background: #020617; color: var(--text); border: 1px solid #334155; border-radius: 10px; padding: 10px 12px; font-family: monospace; }
+    .claim-row button { width: auto; margin-top: 0; padding: 10px 16px; background: var(--accent); color: #042f2e; }
+    #claimStatus { margin-top: 10px; font-size: 0.85rem; color: var(--sky); word-break: break-all; }
+    footer { text-align: center; color: var(--muted); font-size: 0.78rem; margin-top: 22px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Mallik Group Instant Payment &amp; 18-Digit Key Portal</h1>
+    <div class="sub">Select your plan, pay via <strong>mBank UAE</strong>, <strong>Botim/Aani</strong>, <strong>Card</strong>, or <strong>Nepal Bank</strong>, and unlock Pro access.</div>
+
+    <div class="plans">
+      <div class="plan" onclick="selectPlan('Free Humanity Tier (0 AED / 0 NPR)', this)">
+        <div class="badge uae">FREE TIER</div>
+        <div><strong>Humanity Starter</strong></div>
+        <div class="price">0 AED / 0 NPR</div>
+        <div class="hint">3 free Pro runs daily across Sikshya Global AI &amp; EcoThread. No key needed.</div>
+      </div>
+      <div class="plan active" onclick="selectPlan('Pro Monthly (19 AED / 699 NPR)', this)">
+        <div class="badge card-badge">MOST POPULAR • 30 DAYS</div>
+        <div><strong>18-Digit Pro Monthly</strong></div>
+        <div class="price">19 AED / 699 NPR</div>
+        <div class="hint">Unlimited Pro access across all Mallikgroup-for-Humanity web tools.</div>
+      </div>
+      <div class="plan" onclick="selectPlan('Pro Yearly (149 AED / 5,499 NPR)', this)">
+        <div class="badge np-badge">BEST VALUE • 365 DAYS</div>
+        <div><strong>18-Digit Pro Yearly</strong></div>
+        <div class="price">149 AED / 5,499 NPR</div>
+        <div class="hint">Full year priority access + early features + direct WhatsApp support.</div>
+      </div>
+    </div>
+
+    <div class="ref-banner">
+      <div>
+        <div class="hint">Selected: <strong id="selectedPlanLabel" style="color:#f1f5f9;">Pro Monthly (19 AED / 699 NPR)</strong></div>
+        <div class="hint">Include this Reference Code in your transfer remarks:</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span id="orderRef" class="ref-code">MG-0000</span>
+        <button type="button" class="btn-copy" style="width:auto;margin-top:0;padding:7px 12px;" onclick="copyText(document.getElementById('orderRef').textContent, this)">Copy Ref</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card featured">
+        <div>
+          <span class="badge uae">FASTEST • MBANK UAE DIRECT</span>
+          <h3>Al Maryah Community Bank (mBank)</h3>
+          <div>Account Holder: <strong>Niraj Mallik</strong></div>
+          <div id="ibanVal" class="mono">AE900975554769760000001</div>
+          <img class="qr" src="mbank-aani-qr.jpg" alt="mBank / Aani QR - Niraj Mallik" onerror="this.style.display='none'" />
+          <div class="hint">Direct UAE IBAN / Aani transfer (AED). Settles straight into mBank UAE.</div>
+        </div>
+        <button type="button" class="btn-copy" onclick="copyText(document.getElementById('ibanVal').textContent, this)">Copy mBank IBAN</button>
+      </div>
+
+      <div class="card featured">
+        <div>
+          <span class="badge uae">INSTANT • BOTIM &amp; AANI</span>
+          <h3>Botim / PayBy / Aani</h3>
+          <div>Account Holder: <strong>Niraj Mallik</strong></div>
+          <div id="botimVal" class="mono">+971502297451</div>
+          <div class="hint">Send via Botim or Aani using mobile number <strong>+971502297451</strong> for instant AED transfer.</div>
+        </div>
+        <button type="button" class="btn-copy" onclick="copyText(document.getElementById('botimVal').textContent, this)">Copy +971502297451</button>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="badge card-badge">CARD • SETTLES TO MBANK UAE</span>
+          <h3>Visa / Mastercard / Apple Pay</h3>
+          <div>Beneficiary: <strong>Niraj Mallik</strong></div>
+          <div class="mono">Payout IBAN: AE900975554769760000001</div>
+          <div class="hint">Request a one-tap card/Apple Pay checkout link on WhatsApp with your reference code.</div>
+        </div>
+        <a class="btn btn-sky" id="cardLinkBtn" href="#">Request Card Link on WhatsApp</a>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="badge np-badge">NEPAL • FONEPAY / BANK QR</span>
+          <h3>Excel Development Bank Ltd.</h3>
+          <div>Account Holder: <strong>Niraj Mallik</strong></div>
+          <img class="qr" src="excel-bank-qr.jpg" alt="Excel Development Bank QR - Niraj Mallik" />
+          <div class="hint">Scan with any Nepali banking app, eSewa, or Khalti (NPR).</div>
+        </div>
+        <div class="hint"><strong>Tip:</strong> Put your <code>MG-XXXX</code> code in remarks.</div>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="badge np-badge">NEPAL • RBB BANK TRANSFER</span>
+          <h3>Rastriya Banijya Bank Ltd.</h3>
+          <div>Account Holder: <strong>Niraj Mallik</strong></div>
+          <div>Branch: <strong>Shivaganj (Shivasatakshi, Jhapa)</strong></div>
+          <div id="rbbVal" class="mono">2140100005105010</div>
+          <div class="hint">NPR transfer via ConnectIPS, RBB Smart, or branch deposit.</div>
+        </div>
+        <button type="button" class="btn-copy" onclick="copyText(document.getElementById('rbbVal').textContent, this)">Copy RBB Account</button>
+      </div>
+    </div>
+
+    <a id="waReceiptBtn" class="btn btn-wa" href="#">
+      I Have Paid — Send Receipt &amp; Ref on WhatsApp (+971502297451)
+    </a>
+
+    <div class="claim-box">
+      <h3 style="margin:0 0 4px;">Check / Claim Your 18-Digit Key</h3>
+      <div class="hint">Already paid? Enter your <code>MG-XXXX</code> reference code (or your assigned 18-digit key) to verify status.</div>
+      <div class="claim-row">
+        <input id="lookupInput" type="text" placeholder="Enter MG-XXXX or 18-digit key" />
+        <button type="button" onclick="checkKeyStatus()">Check Key</button>
+      </div>
+      <div id="claimStatus"></div>
+    </div>
+
+    <footer>©Nirajmallik@hub • Mallikgroup for Humanity • MIT License 2026</footer>
+  </div>
+
+  <script>
+    const DB_ROOT = "https://nmdc-ajs-security-default-rtdb.firebaseio.com/mallik_payments";
+    const refCode = "MG-" + Math.floor(1000 + Math.random() * 9000);
+    let selectedPlan = "Pro Monthly (19 AED / 699 NPR)";
+    document.getElementById("orderRef").textContent = refCode;
+    document.getElementById("lookupInput").value = refCode;
+
+    function updateWaLinks() {
+      const receiptMsg = encodeURIComponent(`Hello Niraj, I completed payment for ${selectedPlan} | Ref: ${refCode}. Attaching receipt to activate my 18-digit key.`);
+      const cardMsg = encodeURIComponent(`Hello Niraj, please send me the Card Payment link for ${selectedPlan} | Ref: ${refCode} (settling to mBank UAE).`);
+      document.getElementById("waReceiptBtn").href = `https://wa.me/971502297451?text=${receiptMsg}`;
+      document.getElementById("cardLinkBtn").href = `https://wa.me/971502297451?text=${cardMsg}`;
+    }
+    updateWaLinks();
+
+    function selectPlan(planName, el) {
+      selectedPlan = planName;
+      document.getElementById("selectedPlanLabel").textContent = planName;
+      document.querySelectorAll(".plan").forEach(p => p.classList.remove("active"));
+      el.classList.add("active");
+      updateWaLinks();
+    }
+
+    function copyText(text, btn) {
+      navigator.clipboard?.writeText(text).catch(() => {});
+      const prev = btn.textContent;
+      btn.textContent = "Copied!";
+      setTimeout(() => { btn.textContent = prev; }, 1400);
+    }
+
+    async function checkKeyStatus() {
+      const val = document.getElementById("lookupInput").value.trim();
+      const out = document.getElementById("claimStatus");
+      if (!val) { out.textContent = "Enter a reference code or 18-digit key first."; return; }
+      out.textContent = "Checking payment status...";
+      try {
+        if (/^\d{18}$/.test(val)) {
+          const r = await fetch(`${DB_ROOT}/quantum_keys/${val}.json`);
+          const data = await r.json();
+          out.textContent = data && data.status === "ACTIVE" ? `18-Digit Key ${val} is ACTIVE in Mallik Payments.` : `18-Digit Key ${val} not active yet. Send receipt on WhatsApp with Ref ${refCode}.`;
+        } else {
+          const r = await fetch(`${DB_ROOT}/orders/${encodeURIComponent(val)}.json`);
+          const order = await r.json();
+          out.textContent = order && order.key ? `Approved! Your 18-Digit Key: ${order.key}` : `Ref ${val} is awaiting payment verification. Send receipt on WhatsApp (+971502297451).`;
+        }
+      } catch (e) {
+        out.textContent = "Could not reach payment database right now. Send receipt on WhatsApp (+971502297451).";
+      }
+    }
+  </script>
+</body>
+</html>
