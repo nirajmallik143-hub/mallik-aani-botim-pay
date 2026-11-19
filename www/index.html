@@ -3,183 +3,327 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Download Mallik Group for Humanity Apps — Android, iOS, Windows &amp; Web</title>
+  <title>Mallik Group for Humanity — Harness 7G AI Agent &amp; Multi-Platform Hub</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#10b981" />
   <style>
     :root {
-      --bg: #070d19;
-      --card: #0f172a;
+      --bg: #060b16;
+      --panel: #0f172a;
+      --card: #111c33;
       --border: #1e293b;
-      --text: #f1f5f9;
+      --text: #f8fafc;
       --muted: #94a3b8;
-      --accent: #10b981;
+      --green: #10b981;
       --sky: #38bdf8;
-      --gold: #f59e0b;
+      --amber: #f59e0b;
     }
     * { box-sizing: border-box; }
-    body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 16px; }
-    .wrap { max-width: 940px; margin: 0 auto; }
-    h1 { font-size: 1.4rem; margin: 0 0 6px; }
-    .sub { color: var(--muted); font-size: 0.88rem; margin-bottom: 16px; }
-    .detected {
-      background: #0b192c;
-      border: 1px solid var(--sky);
-      border-radius: 12px;
-      padding: 12px 16px;
-      margin-bottom: 18px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); gap: 14px; }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
+    body {
+      margin: 0;
       padding: 16px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at top, #0d1b36 0%, var(--bg) 65%);
+      color: var(--text);
     }
-    .card.highlight { border-color: var(--accent); box-shadow: 0 0 0 1px rgba(16,185,129,0.25); }
-    .tag { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; margin-bottom: 8px; width: fit-content; }
-    .t-android { background: #064e3b; color: #34d399; }
-    .t-ios { background: #1e293b; color: #e2e8f0; }
-    .t-win { background: #0c4a6e; color: #38bdf8; }
-    .t-web { background: #451a03; color: #fbbf24; }
-    h3 { margin: 2px 0 8px; font-size: 1.05rem; }
-    .hint { font-size: 0.82rem; color: var(--muted); line-height: 1.45; }
-    .btn {
-      display: block;
-      text-align: center;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 0.88rem;
-      padding: 10px 12px;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-      margin-top: 12px;
-      width: 100%;
-    }
-    .btn-green { background: var(--accent); color: #042f2e; }
-    .btn-sky { background: var(--sky); color: #082f49; }
-    .btn-outline { background: #1e293b; color: var(--text); border: 1px solid #334155; }
-    .key-bar {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 16px;
-      margin-top: 20px;
+    .wrap { max-width: 980px; margin: 0 auto; }
+    header {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 18px;
     }
-    footer { text-align: center; color: var(--muted); font-size: 0.78rem; margin-top: 24px; }
+    .brand { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.01em; }
+    .brand span { color: var(--green); }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 8px; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+    .nav-links a.primary { background: var(--green); color: #042f2e; border-color: var(--green); }
+    .hero {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 18px;
+    }
+    .hero h1 { margin: 0 0 8px; font-size: 1.45rem; }
+    .hero p { margin: 0 0 14px; color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+    .tier-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: #070f20;
+      border: 1px solid #1e3a5f;
+      border-radius: 12px;
+      padding: 10px 14px;
+    }
+    .badge {
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #064e3b;
+      color: #34d399;
+    }
+    .agent-box {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 18px;
+    }
+    .agent-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .agent-controls { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+    select, input, textarea {
+      background: #050a14;
+      color: var(--text);
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 0.88rem;
+      font-family: inherit;
+    }
+    textarea { width: 100%; min-height: 82px; resize: vertical; margin-bottom: 10px; }
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+    }
+    .btn-run { background: var(--green); color: #042f2e; }
+    .btn-sky { background: var(--sky); color: #082f49; }
+    .btn-dark { background: #1e293b; color: var(--text); border: 1px solid #334155; }
+    .agent-out {
+      background: #040812;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: 12px;
+      font-size: 0.86rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      color: #e2e8f0;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card h3 { margin: 0 0 6px; font-size: 1rem; }
+    .card p { margin: 0 0 12px; color: var(--muted); font-size: 0.82rem; line-height: 1.45; }
+    .card a {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      padding: 9px 12px;
+      border-radius: 9px;
+      font-weight: 700;
+      font-size: 0.84rem;
+    }
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.78rem;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <h1>Mallik Group for Humanity — App Download &amp; Launch Hub</h1>
-    <div class="sub">Access <strong>EcoThread</strong>, <strong>Sikshya Global AI</strong>, and <strong>Harness 7G</strong> portals on <strong>Android (Google Play &amp; APK)</strong>, <strong>iOS</strong>, <strong>Windows</strong>, and <strong>Web Browser</strong>.</div>
+    <header>
+      <div class="brand">Mallik Group <span>for Humanity</span></div>
+      <nav class="nav-links">
+        <a href="#agent">Harness 7G Agent</a>
+        <a href="app-download.html">Download Apps</a>
+        <a class="primary" href="nepal-banks.html">Get 18-Digit Pro Key</a>
+      </nav>
+    </header>
 
-    <div class="detected">
-      <div>Detected Device: <strong id="deviceLabel" style="color:#38bdf8;">Detecting...</strong></div>
-      <button id="pwaInstallBtn" type="button" class="btn btn-green" style="width:auto;margin-top:0;padding:8px 16px;display:none;">Install Web App Now</button>
-    </div>
-
-    <div class="grid">
-      <!-- Android & Google Play -->
-      <div class="card highlight">
-        <div>
-          <span class="tag t-android">ANDROID &amp; GOOGLE PLAY</span>
-          <h3>Android App (Play Store / APK)</h3>
-          <div class="hint">
-            Package: <code>com.nirajmallikhub.mallikhumanity</code><br/>
-            Install via <strong>Google Play Store</strong> (AAB/TWA release) or direct <strong>APK</strong> download, or tap <em>Install App</em> in Chrome on Android.
-          </div>
+    <section class="hero">
+      <h1>Harness 7G — Unified Humanitarian AI &amp; Multi-Platform Ecosystem</h1>
+      <p>Connecting humanity with multilingual intelligence (Nepali, Maithili, Bhojpuri, Newari, Tamang, Tharu, Limbu, English &amp; Arabic), <strong>Sikshya Global AI</strong>, and <strong>EcoThread</strong> carbon-aware engineering.</p>
+      <div class="tier-strip">
+        <div>Status: <span id="tierBadge" class="badge">CHECKING TIER...</span></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+          <input id="proKeyInput" type="text" maxlength="18" placeholder="Enter 18-Digit Pro Key" style="padding:7px 10px;font-family:monospace;width:205px;" />
+          <button type="button" class="btn-sky" style="padding:7px 12px;" onclick="activateProKey()">Unlock Pro</button>
         </div>
-        <a class="btn btn-green" href="https://play.google.com/store" target="_blank" rel="noopener">Google Play / Android Build</a>
+      </div>
+    </section>
+
+    <!-- Interactive Harness 7G AI Agent -->
+    <section id="agent" class="agent-box">
+      <div class="agent-header">
+        <div>
+          <strong>Harness 7G AI Agent Console</strong>
+          <div style="font-size:0.8rem;color:var(--muted);">Free Humanity Tier: 3 runs/day • Pro 18-Digit Key: Unlimited</div>
+        </div>
+        <div class="agent-controls" style="margin-bottom:0;">
+          <select id="agentMode">
+            <option value="humanity">Humanity Nepal 7G (Multilingual Problem Solver)</option>
+            <option value="sikshya">Sikshya Global AI (Education &amp; Skill Tutor)</option>
+            <option value="ecothread">EcoThread (Carbon-Aware Code Optimizer)</option>
+            <option value="sovereign">Sovereign Alpha / Flux-7G Synthesis</option>
+          </select>
+        </div>
       </div>
 
-      <!-- iOS -->
+      <textarea id="agentPrompt" placeholder="Ask Harness 7G AI Agent anything (in English, Nepali, Maithili, Hindi, or Arabic)..."></textarea>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button type="button" class="btn-run" onclick="runHarnessAgent()">Run Harness 7G Agent</button>
+        <button type="button" class="btn-dark" onclick="document.getElementById('agentPrompt').value='';document.getElementById('agentOutput').textContent='Agent ready.';">Clear</button>
+      </div>
+      <div id="agentOutput" class="agent-out">Harness 7G AI Agent ready. Select a module and enter your prompt above.</div>
+    </section>
+
+    <!-- Multi-Platform & Payment Cards -->
+    <section class="grid">
       <div class="card">
         <div>
-          <span class="tag t-ios">IPHONE &amp; IPAD (IOS)</span>
-          <h3>iOS Web App &amp; Home Screen</h3>
-          <div class="hint">
-            Open in <strong>Safari</strong>, tap <strong>Share</strong> (square + arrow icon) &rarr; <strong>Add to Home Screen</strong> for full-screen app mode on iPhone &amp; iPad.
-          </div>
+          <h3>Android &amp; Google Play</h3>
+          <p>Package <code>com.nirajmallikhub.mallikhumanity</code> — install via Play Store, APK, or Android PWA.</p>
         </div>
-        <a class="btn btn-outline" href="nepal-banks.html">Open iOS Ready App</a>
+        <a class="btn-run" href="app-download.html">Download for Android</a>
       </div>
 
-      <!-- Windows -->
       <div class="card">
         <div>
-          <span class="tag t-win">WINDOWS DESKTOP</span>
-          <h3>Windows App (Edge / Chrome / EXE)</h3>
-          <div class="hint">
-            Open in <strong>Microsoft Edge</strong> or <strong>Google Chrome</strong> on Windows &rarr; <strong>Apps &rarr; Install this site as an app</strong> (or run your packaged Windows installer).
-          </div>
+          <h3>iOS (iPhone &amp; iPad)</h3>
+          <p>Install directly from Safari via <strong>Share &rarr; Add to Home Screen</strong> with full offline support.</p>
         </div>
-        <a class="btn btn-sky" href="nepal-banks.html">Open Windows Web App</a>
+        <a class="btn-dark" href="app-download.html">Install on iOS</a>
       </div>
 
-      <!-- Web Browser -->
       <div class="card">
         <div>
-          <span class="tag t-web">INSTANT • ANY BROWSER</span>
-          <h3>Web Browser (No Download)</h3>
-          <div class="hint">
-            Run immediately in any modern browser. Includes <strong>3 Free Daily Runs</strong> and instant unlock with your <strong>18-Digit Pro Key</strong>.
-          </div>
+          <h3>Windows &amp; Web Browser</h3>
+          <p>Run in any browser or install as a standalone Windows Desktop App via Edge / Chrome.</p>
         </div>
-        <a class="btn btn-outline" href="nepal-banks.html">Launch in Browser</a>
+        <a class="btn-sky" href="app-download.html">Windows &amp; Web Hub</a>
       </div>
-    </div>
 
-    <div class="key-bar">
-      <div>
-        <strong>Free Tier (3 runs/day) &amp; Unique 18-Digit Pro Key</strong>
-        <div class="hint">Pay via mBank UAE, Botim/Aani, Card, or Nepal Bank to receive your unique 18-digit Pro key.</div>
+      <div class="card">
+        <div>
+          <h3>Instant Payment &amp; 18-Digit Key</h3>
+          <p>Pay via <strong>mBank UAE</strong>, <strong>Botim/Aani</strong>, <strong>Card</strong>, or <strong>Nepal Bank</strong> (Excel QR / RBB) to unlock Pro.</p>
+        </div>
+        <a class="btn-run" href="nepal-banks.html">Upgrade / Claim Key</a>
       </div>
-      <a class="btn btn-green" style="width:auto;margin-top:0;padding:10px 18px;" href="nepal-banks.html">Get 18-Digit Pro Key</a>
-    </div>
+    </section>
 
-    <footer>©Nirajmallik@hub • Mallikgroup for Humanity • MIT License 2026</footer>
+    <footer>
+      Problem = Solve = Success • Think = Do<br/>
+      ©Nirajmallik@hub • Mallikgroup for Humanity • MIT License 2026
+    </footer>
   </div>
 
+  <script src="mallik-tier-gate.js"></script>
   <script>
-    const ua = navigator.userAgent || "";
-    const label = document.getElementById("deviceLabel");
-    if (/android/i.test(ua)) {
-      label.textContent = "Android Device (Google Play / APK / PWA supported)";
-    } else if (/iphone|ipad|ipod/i.test(ua)) {
-      label.textContent = "iOS Device (Safari Add to Home Screen supported)";
-    } else if (/windows/i.test(ua)) {
-      label.textContent = "Windows PC (Edge/Chrome App Install supported)";
-    } else {
-      label.textContent = "Web Browser (Instant Cross-Platform Access)";
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js").catch(() => {});
     }
 
-    let deferredPrompt = null;
-    const installBtn = document.getElementById("pwaInstallBtn");
-    window.addEventListener("beforeinstallprompt", (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      installBtn.style.display = "inline-block";
-    });
-    installBtn.addEventListener("click", async () => {
-      if (!deferredPrompt) return;
-      deferredPrompt.prompt();
-      await deferredPrompt.userChoice;
-      deferredPrompt = null;
-      installBtn.style.display = "none";
-    });
+    async function refreshTierUI() {
+      const badge = document.getElementById("tierBadge");
+      if (!window.MallikTierGate) {
+        badge.textContent = "FREE TIER (3 RUNS/DAY)";
+        return;
+      }
+      const status = await window.MallikTierGate.verifyKey();
+      if (status.tier === "PRO") {
+        badge.textContent = "PRO UNLIMITED ACTIVE (" + status.key.slice(0, 6) + "...)";
+      } else {
+        badge.textContent = "FREE HUMANITY TIER (" + status.remaining + " RUNS LEFT TODAY)";
+      }
+    }
+    refreshTierUI();
+
+    async function activateProKey() {
+      const k = document.getElementById("proKeyInput").value.trim();
+      const out = document.getElementById("agentOutput");
+      if (!window.MallikTierGate) return;
+      const res = await window.MallikTierGate.verifyKey(k);
+      if (res.tier === "PRO") {
+        out.textContent = "18-Digit Pro Key verified! Unlimited Harness 7G AI Agent access unlocked.";
+      } else {
+        out.textContent = "Key not active yet. Visit nepal-banks.html to get your unique 18-digit Pro key.";
+      }
+      refreshTierUI();
+    }
+
+    async function runHarnessAgent() {
+      const prompt = document.getElementById("agentPrompt").value.trim();
+      const mode = document.getElementById("agentMode").value;
+      const out = document.getElementById("agentOutput");
+      if (!prompt) {
+        out.textContent = "Please enter a question, task, or code snippet first.";
+        return;
+      }
+
+      const status = window.MallikTierGate
+        ? await window.MallikTierGate.verifyKey()
+        : { tier: "FREE", allowed: true, remaining: 3 };
+
+      if (!status.allowed) {
+        out.textContent = "Daily Free Tier limit (3 runs) reached.\nUpgrade with a unique 18-Digit Pro Key at nepal-banks.html for unlimited access.";
+        return;
+      }
+
+      if (status.tier === "FREE" && window.MallikTierGate) {
+        window.MallikTierGate.incrementFreeUse();
+        refreshTierUI();
+      }
+
+      const modeNames = {
+        humanity: "Humanity Nepal 7G Multilingual Agent",
+        sikshya: "Sikshya Global AI Education Tutor",
+        ecothread: "EcoThread Carbon-Aware Code Optimizer",
+        sovereign: "Sovereign Alpha / Flux-7G Synthesis Engine"
+      };
+
+      out.textContent =
+        `[${modeNames[mode]} | Tier: ${status.tier}]\n` +
+        `Formula: Problem = Solve = Success | Think = Do\n\n` +
+        `Input Received:\n"${prompt}"\n\n` +
+        `Agent Action Plan:\n` +
+        `1. Parsed intent under ${modeNames[mode]} (©Nirajmallik@hub).\n` +
+        `2. Applied lightweight edge-first execution to minimize compute energy.\n` +
+        `3. Ready to connect to your private Harness-7G backend endpoint or local Termux worker (mallik_humanity_harness.py).`;
+    }
   </script>
 </body>
 </html>

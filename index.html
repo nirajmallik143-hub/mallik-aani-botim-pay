@@ -3,166 +3,327 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mallik Group — Aani & Botim 1-Month Access</title>
+  <title>Mallik Group for Humanity — Harness 7G AI Agent &amp; Multi-Platform Hub</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#10b981" />
   <style>
-    :root { --bg:#0b0f19; --card:rgba(255,255,255,0.06); --border:rgba(255,255,255,0.14); --accent:#38bdf8; --success:#22c55e; --text:#f8fafc; --muted:#94a3b8; }
-    * { box-sizing:border-box; font-family:system-ui,-apple-system,sans-serif; }
-    body { margin:0; min-height:100vh; background:radial-gradient(circle at top,#1e293b,var(--bg)); color:var(--text); display:flex; align-items:center; justify-content:center; padding:16px; }
-    .container { width:100%; max-width:420px; background:var(--card); backdrop-filter:blur(16px); border:1px solid var(--border); border-radius:20px; padding:22px; box-shadow:0 20px 40px rgba(0,0,0,0.45); }
-    h1 { font-size:1.25rem; margin:0 0 6px; text-align:center; }
-    .subtitle { font-size:0.85rem; color:var(--muted); text-align:center; margin-bottom:18px; }
-    .tabs { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:16px; }
-    .tab-btn { padding:10px; border-radius:12px; border:1px solid var(--border); background:rgba(255,255,255,0.04); color:var(--text); font-weight:600; cursor:pointer; }
-    .tab-btn.active { background:var(--accent); color:#082f49; border-color:var(--accent); }
-    .qr-box { background:#fff; border-radius:16px; padding:14px; text-align:center; margin-bottom:14px; }
-    .qr-box img { width:210px; height:210px; object-fit:contain; display:block; margin:0 auto; }
-    .qr-caption { color:#0f172a; font-size:0.82rem; font-weight:700; margin-top:8px; }
-    .info-pill { display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.05); border:1px solid var(--border); border-radius:12px; padding:10px 12px; font-size:0.85rem; margin-bottom:14px; }
-    .copy-btn { background:rgba(56,189,248,0.2); color:var(--accent); border:none; border-radius:8px; padding:5px 10px; font-size:0.78rem; font-weight:600; cursor:pointer; }
-    label { display:block; font-size:0.82rem; color:var(--muted); margin-bottom:6px; }
-    input { width:100%; padding:12px; border-radius:12px; border:1px solid var(--border); background:rgba(15,23,42,0.8); color:var(--text); font-size:0.95rem; letter-spacing:1px; margin-bottom:12px; }
-    input:focus { outline:none; border-color:var(--accent); }
-    .submit-btn { width:100%; padding:13px; border:none; border-radius:12px; background:linear-gradient(135deg,#38bdf8,#2563eb); color:#fff; font-size:0.95rem; font-weight:700; cursor:pointer; }
-    .status { margin-top:12px; font-size:0.83rem; text-align:center; min-height:20px; }
-    .active-card { display:none; text-align:center; padding:16px 8px; }
-    .badge { display:inline-block; background:rgba(34,197,94,0.18); color:var(--success); border:1px solid rgba(34,197,94,0.4); padding:6px 14px; border-radius:999px; font-size:0.8rem; font-weight:700; margin-bottom:12px; }
-    .countdown { font-size:1.4rem; font-weight:800; margin:10px 0; color:var(--accent); }
-    .meta { font-size:0.8rem; color:var(--muted); line-height:1.5; }
-    .wa-btn { margin-top:14px; display:inline-block; padding:10px 16px; border-radius:10px; background:#22c55e; color:#052e16; font-weight:700; text-decoration:none; font-size:0.85rem; }
-    footer { margin-top:16px; text-align:center; font-size:0.72rem; color:var(--muted); }
+    :root {
+      --bg: #060b16;
+      --panel: #0f172a;
+      --card: #111c33;
+      --border: #1e293b;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --green: #10b981;
+      --sky: #38bdf8;
+      --amber: #f59e0b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 16px;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at top, #0d1b36 0%, var(--bg) 65%);
+      color: var(--text);
+    }
+    .wrap { max-width: 980px; margin: 0 auto; }
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 18px;
+    }
+    .brand { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.01em; }
+    .brand span { color: var(--green); }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 8px; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+    .nav-links a.primary { background: var(--green); color: #042f2e; border-color: var(--green); }
+    .hero {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 18px;
+    }
+    .hero h1 { margin: 0 0 8px; font-size: 1.45rem; }
+    .hero p { margin: 0 0 14px; color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+    .tier-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: #070f20;
+      border: 1px solid #1e3a5f;
+      border-radius: 12px;
+      padding: 10px 14px;
+    }
+    .badge {
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #064e3b;
+      color: #34d399;
+    }
+    .agent-box {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 18px;
+    }
+    .agent-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .agent-controls { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+    select, input, textarea {
+      background: #050a14;
+      color: var(--text);
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 0.88rem;
+      font-family: inherit;
+    }
+    textarea { width: 100%; min-height: 82px; resize: vertical; margin-bottom: 10px; }
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+    }
+    .btn-run { background: var(--green); color: #042f2e; }
+    .btn-sky { background: var(--sky); color: #082f49; }
+    .btn-dark { background: #1e293b; color: var(--text); border: 1px solid #334155; }
+    .agent-out {
+      background: #040812;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: 12px;
+      font-size: 0.86rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      color: #e2e8f0;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card h3 { margin: 0 0 6px; font-size: 1rem; }
+    .card p { margin: 0 0 12px; color: var(--muted); font-size: 0.82rem; line-height: 1.45; }
+    .card a {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      padding: 9px 12px;
+      border-radius: 9px;
+      font-weight: 700;
+      font-size: 0.84rem;
+    }
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.78rem;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div id="checkoutView">
-      <h1>1-Month Pro Access (AED 25)</h1>
-      <p class="subtitle">Scan via Aani (All UAE Banks) or Botim, then enter your 18-digit receipt code.</p>
-      <div class="tabs">
-        <button class="tab-btn active" id="tabAani" onclick="switchQR('aani')">Aani (mBank)</button>
-        <button class="tab-btn" id="tabBotim" onclick="switchQR('botim')">Botim Pay</button>
-      </div>
-      <div class="qr-box">
-        <img id="qrImage" src="aani-qr.png" alt="Payment QR Code" />
-        <div class="qr-caption" id="qrLabel">Scan with any UAE Bank App or Botim</div>
-      </div>
-      <div class="info-pill">
-        <span>UAE Mobile: <strong id="phoneText">+971502297451</strong></span>
-        <button class="copy-btn" onclick="copyNumber()">Copy</button>
-      </div>
-      <label for="userEmail">Your Email or Name</label>
-      <input type="text" id="userEmail" placeholder="e.g. user@email.com" />
-      <label for="refCode">18-Digit Payment Reference Code</label>
-      <input type="text" id="refCode" inputmode="numeric" maxlength="18" placeholder="Enter 18-digit transaction ID" oninput="this.value = this.value.replace(/\\D/g, '').slice(0, 18)" />
-      <button class="submit-btn" onclick="activateSubscription()">Verify 18-Digit Code & Unlock 1 Month</button>
-      <div class="status" id="statusMsg"></div>
-    </div>
-    <div id="activeView" class="active-card">
-      <div class="badge">● 1-MONTH ACCESS ACTIVE</div>
-      <h2>Subscription Unlocked</h2>
-      <div class="countdown" id="timerDisplay">30d 00h 00m</div>
-      <div class="meta" id="subDetails"></div>
-      <a id="waConfirmLink" class="wa-btn" target="_blank" rel="noopener">Send Receipt Proof on WhatsApp</a>
-    </div>
-    <footer>© 2026 Niraj Mallik (Mallik Group) • MIT License</footer>
-  </div>
-  <script>
-    const FIREBASE_DB_URL = "https://nmdc-ajs-security-default-rtdb.firebaseio.com";
-    const ADMIN_WHATSAPP = "971502297451";
-    const PLAN_DAYS = 30;
-    const STORAGE_KEY = "mallik_1month_sub_v1";
-    const USED_CODES_KEY = "mallik_used_18digit_codes";
-    let selectedMethod = "Aani (mBank)";
+  <div class="wrap">
+    <header>
+      <div class="brand">Mallik Group <span>for Humanity</span></div>
+      <nav class="nav-links">
+        <a href="#agent">Harness 7G Agent</a>
+        <a href="app-download.html">Download Apps</a>
+        <a class="primary" href="nepal-banks.html">Get 18-Digit Pro Key</a>
+      </nav>
+    </header>
 
-    function switchQR(type) {
-      const img = document.getElementById("qrImage");
-      const label = document.getElementById("qrLabel");
-      document.getElementById("tabAani").classList.toggle("active", type === "aani");
-      document.getElementById("tabBotim").classList.toggle("active", type === "botim");
-      if (type === "aani") {
-        img.src = "aani-qr.png";
-        label.textContent = "Scan with any UAE Bank App or Botim (Aani)";
-        selectedMethod = "Aani (mBank)";
+    <section class="hero">
+      <h1>Harness 7G — Unified Humanitarian AI &amp; Multi-Platform Ecosystem</h1>
+      <p>Connecting humanity with multilingual intelligence (Nepali, Maithili, Bhojpuri, Newari, Tamang, Tharu, Limbu, English &amp; Arabic), <strong>Sikshya Global AI</strong>, and <strong>EcoThread</strong> carbon-aware engineering.</p>
+      <div class="tier-strip">
+        <div>Status: <span id="tierBadge" class="badge">CHECKING TIER...</span></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+          <input id="proKeyInput" type="text" maxlength="18" placeholder="Enter 18-Digit Pro Key" style="padding:7px 10px;font-family:monospace;width:205px;" />
+          <button type="button" class="btn-sky" style="padding:7px 12px;" onclick="activateProKey()">Unlock Pro</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Harness 7G AI Agent -->
+    <section id="agent" class="agent-box">
+      <div class="agent-header">
+        <div>
+          <strong>Harness 7G AI Agent Console</strong>
+          <div style="font-size:0.8rem;color:var(--muted);">Free Humanity Tier: 3 runs/day • Pro 18-Digit Key: Unlimited</div>
+        </div>
+        <div class="agent-controls" style="margin-bottom:0;">
+          <select id="agentMode">
+            <option value="humanity">Humanity Nepal 7G (Multilingual Problem Solver)</option>
+            <option value="sikshya">Sikshya Global AI (Education &amp; Skill Tutor)</option>
+            <option value="ecothread">EcoThread (Carbon-Aware Code Optimizer)</option>
+            <option value="sovereign">Sovereign Alpha / Flux-7G Synthesis</option>
+          </select>
+        </div>
+      </div>
+
+      <textarea id="agentPrompt" placeholder="Ask Harness 7G AI Agent anything (in English, Nepali, Maithili, Hindi, or Arabic)..."></textarea>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button type="button" class="btn-run" onclick="runHarnessAgent()">Run Harness 7G Agent</button>
+        <button type="button" class="btn-dark" onclick="document.getElementById('agentPrompt').value='';document.getElementById('agentOutput').textContent='Agent ready.';">Clear</button>
+      </div>
+      <div id="agentOutput" class="agent-out">Harness 7G AI Agent ready. Select a module and enter your prompt above.</div>
+    </section>
+
+    <!-- Multi-Platform & Payment Cards -->
+    <section class="grid">
+      <div class="card">
+        <div>
+          <h3>Android &amp; Google Play</h3>
+          <p>Package <code>com.nirajmallikhub.mallikhumanity</code> — install via Play Store, APK, or Android PWA.</p>
+        </div>
+        <a class="btn-run" href="app-download.html">Download for Android</a>
+      </div>
+
+      <div class="card">
+        <div>
+          <h3>iOS (iPhone &amp; iPad)</h3>
+          <p>Install directly from Safari via <strong>Share &rarr; Add to Home Screen</strong> with full offline support.</p>
+        </div>
+        <a class="btn-dark" href="app-download.html">Install on iOS</a>
+      </div>
+
+      <div class="card">
+        <div>
+          <h3>Windows &amp; Web Browser</h3>
+          <p>Run in any browser or install as a standalone Windows Desktop App via Edge / Chrome.</p>
+        </div>
+        <a class="btn-sky" href="app-download.html">Windows &amp; Web Hub</a>
+      </div>
+
+      <div class="card">
+        <div>
+          <h3>Instant Payment &amp; 18-Digit Key</h3>
+          <p>Pay via <strong>mBank UAE</strong>, <strong>Botim/Aani</strong>, <strong>Card</strong>, or <strong>Nepal Bank</strong> (Excel QR / RBB) to unlock Pro.</p>
+        </div>
+        <a class="btn-run" href="nepal-banks.html">Upgrade / Claim Key</a>
+      </div>
+    </section>
+
+    <footer>
+      Problem = Solve = Success • Think = Do<br/>
+      ©Nirajmallik@hub • Mallikgroup for Humanity • MIT License 2026
+    </footer>
+  </div>
+
+  <script src="mallik-tier-gate.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js").catch(() => {});
+    }
+
+    async function refreshTierUI() {
+      const badge = document.getElementById("tierBadge");
+      if (!window.MallikTierGate) {
+        badge.textContent = "FREE TIER (3 RUNS/DAY)";
+        return;
+      }
+      const status = await window.MallikTierGate.verifyKey();
+      if (status.tier === "PRO") {
+        badge.textContent = "PRO UNLIMITED ACTIVE (" + status.key.slice(0, 6) + "...)";
       } else {
-        img.src = "botim-qr.png";
-        label.textContent = "Scan inside Botim App (PayBy)";
-        selectedMethod = "Botim Pay";
+        badge.textContent = "FREE HUMANITY TIER (" + status.remaining + " RUNS LEFT TODAY)";
       }
     }
-    function copyNumber() {
-      navigator.clipboard.writeText("+971502297451");
-      showStatus("Phone number +971502297451 copied!", "#38bdf8");
+    refreshTierUI();
+
+    async function activateProKey() {
+      const k = document.getElementById("proKeyInput").value.trim();
+      const out = document.getElementById("agentOutput");
+      if (!window.MallikTierGate) return;
+      const res = await window.MallikTierGate.verifyKey(k);
+      if (res.tier === "PRO") {
+        out.textContent = "18-Digit Pro Key verified! Unlimited Harness 7G AI Agent access unlocked.";
+      } else {
+        out.textContent = "Key not active yet. Visit nepal-banks.html to get your unique 18-digit Pro key.";
+      }
+      refreshTierUI();
     }
-    function showStatus(msg, color) {
-      const el = document.getElementById("statusMsg");
-      el.style.color = color;
-      el.textContent = msg;
-    }
-    async function activateSubscription() {
-      const user = document.getElementById("userEmail").value.trim() || "Guest User";
-      const code = document.getElementById("refCode").value.trim();
-      if (!/^\\d{18}$/.test(code)) {
-        showStatus("Invalid code (" + code.length + "/18 digits). Enter the exact 18-digit reference number.", "#f59e0b");
+
+    async function runHarnessAgent() {
+      const prompt = document.getElementById("agentPrompt").value.trim();
+      const mode = document.getElementById("agentMode").value;
+      const out = document.getElementById("agentOutput");
+      if (!prompt) {
+        out.textContent = "Please enter a question, task, or code snippet first.";
         return;
       }
-      const usedCodes = JSON.parse(localStorage.getItem(USED_CODES_KEY) || "[]");
-      if (usedCodes.includes(code)) {
-        showStatus("This 18-digit reference code has already been redeemed.", "#ef4444");
+
+      const status = window.MallikTierGate
+        ? await window.MallikTierGate.verifyKey()
+        : { tier: "FREE", allowed: true, remaining: 3 };
+
+      if (!status.allowed) {
+        out.textContent = "Daily Free Tier limit (3 runs) reached.\nUpgrade with a unique 18-Digit Pro Key at nepal-banks.html for unlimited access.";
         return;
       }
-      const now = Date.now();
-      const expiresAt = now + PLAN_DAYS * 24 * 60 * 60 * 1000;
-      const record = {
-        user: user, method: selectedMethod, referenceCode18: code,
-        activatedAt: new Date(now).toISOString(),
-        expiresAt: new Date(expiresAt).toISOString(),
-        expiresTimestamp: expiresAt, durationDays: PLAN_DAYS, status: "VERIFIED_1_MONTH"
+
+      if (status.tier === "FREE" && window.MallikTierGate) {
+        window.MallikTierGate.incrementFreeUse();
+        refreshTierUI();
+      }
+
+      const modeNames = {
+        humanity: "Humanity Nepal 7G Multilingual Agent",
+        sikshya: "Sikshya Global AI Education Tutor",
+        ecothread: "EcoThread Carbon-Aware Code Optimizer",
+        sovereign: "Sovereign Alpha / Flux-7G Synthesis Engine"
       };
-      if (FIREBASE_DB_URL) {
-        try {
-          showStatus("Syncing 18-digit payment code to Firebase...", "#38bdf8");
-          const checkRes = await fetch(FIREBASE_DB_URL + "/mallik_payments/" + code + ".json");
-          const existing = await checkRes.json();
-          if (existing) {
-            showStatus("This 18-digit code is already registered in the database.", "#ef4444");
-            return;
-          }
-          await fetch(FIREBASE_DB_URL + "/mallik_payments/" + code + ".json", {
-            method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(record)
-          });
-        } catch (err) { console.warn("Firebase sync skipped:", err); }
-      }
-      usedCodes.push(code);
-      localStorage.setItem(USED_CODES_KEY, JSON.stringify(usedCodes));
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(record));
-      renderActiveSubscription(record);
+
+      out.textContent =
+        `[${modeNames[mode]} | Tier: ${status.tier}]\n` +
+        `Formula: Problem = Solve = Success | Think = Do\n\n` +
+        `Input Received:\n"${prompt}"\n\n` +
+        `Agent Action Plan:\n` +
+        `1. Parsed intent under ${modeNames[mode]} (©Nirajmallik@hub).\n` +
+        `2. Applied lightweight edge-first execution to minimize compute energy.\n` +
+        `3. Ready to connect to your private Harness-7G backend endpoint or local Termux worker (mallik_humanity_harness.py).`;
     }
-    function renderActiveSubscription(record) {
-      document.getElementById("checkoutView").style.display = "none";
-      document.getElementById("activeView").style.display = "block";
-      const expDate = new Date(record.expiresTimestamp).toLocaleString();
-      document.getElementById("subDetails").innerHTML =
-        "<strong>Account:</strong> " + record.user + "<br/>" +
-        "<strong>Method:</strong> " + record.method + "<br/>" +
-        "<strong>18-Digit Ref:</strong> " + record.referenceCode18 + "<br/>" +
-        "<strong>Valid Until:</strong> " + expDate;
-      const waText = encodeURIComponent("Hello Niraj, I completed my 1-month payment via " + record.method + ".\n18-Digit Ref: " + record.referenceCode18 + "\nUser: " + record.user);
-      document.getElementById("waConfirmLink").href = "https://wa.me/" + ADMIN_WHATSAPP + "?text=" + waText;
-      updateCountdown(record.expiresTimestamp);
-      setInterval(function() { updateCountdown(record.expiresTimestamp); }, 60000);
-    }
-    function updateCountdown(expiresTimestamp) {
-      const diff = expiresTimestamp - Date.now();
-      if (diff <= 0) { localStorage.removeItem(STORAGE_KEY); location.reload(); return; }
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const mins = Math.floor((diff / (1000 * 60)) % 60);
-      document.getElementById("timerDisplay").textContent = days + "d " + hours + "h " + mins + "m remaining";
-    }
-    (function init() {
-      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
-      if (saved && saved.expiresTimestamp > Date.now()) { renderActiveSubscription(saved); }
-    })();
   </script>
-<div style="text-align:center;font-size:12px;opacity:0.75;padding:8px;">©Nirajmallik@hub</div>
 </body>
 </html>
