@@ -1,4 +1,4 @@
-// ©Nirajmallik@hub — Free Tier + Paid 18-Digit Pro Tier Gate (MIT License 2026)
+// ©Nirajmallik@hub — Public Free Tier + Paid 18-Digit Pro Tier Gate (MIT License 2026)
 window.MallikTierGate = (function () {
   const DB = "https://nmdc-ajs-security-default-rtdb.firebaseio.com/mallik_payments";
   const STORAGE_KEY = "mallik_pro_key_18";
@@ -18,20 +18,27 @@ window.MallikTierGate = (function () {
     return count;
   }
 
+  function isValidLuhn18(numStr) {
+    if (!/^\d{18}$/.test(numStr)) return false;
+    let sum = 0;
+    for (let i = 0; i < 18; i++) {
+      let d = parseInt(numStr[17 - i], 10);
+      if (i % 2 === 1) { d *= 2; if (d > 9) d -= 9; }
+      sum += d;
+    }
+    return sum % 10 === 0;
+  }
+
   async function verifyKey(inputKey) {
     const k = (inputKey || localStorage.getItem(STORAGE_KEY) || "").trim();
-    if (k === "#cgjolj2Y") {
-      localStorage.setItem(STORAGE_KEY, k);
-      return { tier: "OWNER", allowed: true, remaining: "UNLIMITED" };
-    }
-    if (!/^\d{18}$/.test(k)) {
+    if (!isValidLuhn18(k)) {
       const used = getTodayCount();
       return { tier: "FREE", allowed: used < FREE_DAILY_LIMIT, remaining: Math.max(0, FREE_DAILY_LIMIT - used) };
     }
     try {
       const res = await fetch(`${DB}/quantum_keys/${k}.json`);
       const rec = await res.json();
-      if (rec && (!rec.expiresAt || rec.expiresAt > Date.now())) {
+      if (rec && rec.status === "ACTIVE" && (!rec.expiresAt || rec.expiresAt > Date.now())) {
         localStorage.setItem(STORAGE_KEY, k);
         return { tier: "PRO", allowed: true, key: k, remaining: "UNLIMITED" };
       }
@@ -40,5 +47,5 @@ window.MallikTierGate = (function () {
     return { tier: "FREE", allowed: used < FREE_DAILY_LIMIT, remaining: Math.max(0, FREE_DAILY_LIMIT - used) };
   }
 
-  return { verifyKey, incrementFreeUse, FREE_DAILY_LIMIT };
+  return { verifyKey, incrementFreeUse, isValidLuhn18, FREE_DAILY_LIMIT };
 })();
