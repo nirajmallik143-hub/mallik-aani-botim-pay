@@ -52,7 +52,7 @@
       <label for="userEmail">Your Email or Name</label>
       <input type="text" id="userEmail" placeholder="e.g. user@email.com" />
       <label for="refCode">18-Digit Payment Reference Code</label>
-      <input type="text" id="refCode" inputmode="numeric" maxlength="18" placeholder="Enter 18-digit transaction ID" oninput="this.value = this.value.replace(/\D/g, '').slice(0, 18)" />
+      <input type="text" id="refCode" inputmode="numeric" maxlength="18" placeholder="Enter 18-digit transaction ID" oninput="this.value = this.value.replace(/\\D/g, '').slice(0, 18)" />
       <button class="submit-btn" onclick="activateSubscription()">Verify 18-Digit Code & Unlock 1 Month</button>
       <div class="status" id="statusMsg"></div>
     </div>
@@ -100,8 +100,8 @@
     async function activateSubscription() {
       const user = document.getElementById("userEmail").value.trim() || "Guest User";
       const code = document.getElementById("refCode").value.trim();
-      if (!/^\d{18}$/.test(code)) {
-        showStatus(`Invalid code (${code.length}/18 digits). Enter the exact 18-digit reference number.`, "#f59e0b");
+      if (!/^\\d{18}$/.test(code)) {
+        showStatus("Invalid code (" + code.length + "/18 digits). Enter the exact 18-digit reference number.", "#f59e0b");
         return;
       }
       const usedCodes = JSON.parse(localStorage.getItem(USED_CODES_KEY) || "[]");
@@ -112,7 +112,7 @@
       const now = Date.now();
       const expiresAt = now + PLAN_DAYS * 24 * 60 * 60 * 1000;
       const record = {
-        user, method: selectedMethod, referenceCode18: code,
+        user: user, method: selectedMethod, referenceCode18: code,
         activatedAt: new Date(now).toISOString(),
         expiresAt: new Date(expiresAt).toISOString(),
         expiresTimestamp: expiresAt, durationDays: PLAN_DAYS, status: "VERIFIED_1_MONTH"
@@ -120,13 +120,13 @@
       if (FIREBASE_DB_URL) {
         try {
           showStatus("Syncing 18-digit payment code to Firebase...", "#38bdf8");
-          const checkRes = await fetch(`${FIREBASE_DB_URL}/mallik_payments/${code}.json`);
+          const checkRes = await fetch(FIREBASE_DB_URL + "/mallik_payments/" + code + ".json");
           const existing = await checkRes.json();
           if (existing) {
             showStatus("This 18-digit code is already registered in the database.", "#ef4444");
             return;
           }
-          await fetch(`${FIREBASE_DB_URL}/mallik_payments/${code}.json`, {
+          await fetch(FIREBASE_DB_URL + "/mallik_payments/" + code + ".json", {
             method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(record)
           });
         } catch (err) { console.warn("Firebase sync skipped:", err); }
@@ -140,16 +140,15 @@
       document.getElementById("checkoutView").style.display = "none";
       document.getElementById("activeView").style.display = "block";
       const expDate = new Date(record.expiresTimestamp).toLocaleString();
-      document.getElementById("subDetails").innerHTML = `
-        <strong>Account:</strong> ${record.user}<br/>
-        <strong>Method:</strong> ${record.method}<br/>
-        <strong>18-Digit Ref:</strong> ${record.referenceCode18}<br/>
-        <strong>Valid Until:</strong> ${expDate}
-      `;
-      const waText = encodeURIComponent(`Hello Niraj, I completed my 1-month payment via ${record.method}.\n18-Digit Ref: ${record.referenceCode18}\nUser: ${record.user}`);
-      document.getElementById("waConfirmLink").href = `https://wa.me/${ADMIN_WHATSAPP}?text=${waText}`;
+      document.getElementById("subDetails").innerHTML =
+        "<strong>Account:</strong> " + record.user + "<br/>" +
+        "<strong>Method:</strong> " + record.method + "<br/>" +
+        "<strong>18-Digit Ref:</strong> " + record.referenceCode18 + "<br/>" +
+        "<strong>Valid Until:</strong> " + expDate;
+      const waText = encodeURIComponent("Hello Niraj, I completed my 1-month payment via " + record.method + ".\n18-Digit Ref: " + record.referenceCode18 + "\nUser: " + record.user);
+      document.getElementById("waConfirmLink").href = "https://wa.me/" + ADMIN_WHATSAPP + "?text=" + waText;
       updateCountdown(record.expiresTimestamp);
-      setInterval(() => updateCountdown(record.expiresTimestamp), 60000);
+      setInterval(function() { updateCountdown(record.expiresTimestamp); }, 60000);
     }
     function updateCountdown(expiresTimestamp) {
       const diff = expiresTimestamp - Date.now();
@@ -157,7 +156,7 @@
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
       const mins = Math.floor((diff / (1000 * 60)) % 60);
-      document.getElementById("timerDisplay").textContent = `${days}d ${hours}h ${mins}m remaining`;
+      document.getElementById("timerDisplay").textContent = days + "d " + hours + "h " + mins + "m remaining";
     }
     (function init() {
       const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
